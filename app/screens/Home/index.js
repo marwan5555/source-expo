@@ -170,7 +170,7 @@ export default function Home({navigation}) {
                       {backgroundColor: colors.card},
                     ]}>
                     <Text body1 grayColor>
-                      {t('what_are_you_looking_for')}
+                      {t('คุณกำลังหาอะไรอยู่')}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -182,7 +182,7 @@ export default function Home({navigation}) {
             <View>
               <View>
                 <Text title3 semibold style={styles.titleView}>
-                  {t('promos_today')}
+                  {t('ในวันนี้')}
                 </Text>
                 <FlatList
                   contentContainerStyle={{paddingLeft: 5, paddingRight: 20}}
@@ -208,7 +208,7 @@ export default function Home({navigation}) {
                             navigation.navigate('PreviewBooking');
                           }}>
                           <Text body2 semibold whiteColor>
-                            {t('book_now')}
+                            {t('จองตอนนี้')}
                           </Text>
                         </Button>
                       </View>
@@ -219,7 +219,7 @@ export default function Home({navigation}) {
               {/* Hiking */}
               <View style={styles.titleView}>
                 <Text title3 semibold>
-                  {t('tours')}
+                  {t('ทัวร์')}
                 </Text>
                 <Text body2 grayColor>
                   {t('let_find_tour')}
