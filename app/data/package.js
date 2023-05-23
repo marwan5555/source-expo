@@ -3,105 +3,105 @@ import {Images} from '@config';
 const PackageData = [
   {
     id: '1',
-    packageName: 'Standard Package',
-    price: '$399,99',
-    type: 'per month',
+    packageName: 'แพ็คเกจมาตรฐาน',
+    price: '13,331 บาท',
+    type: 'ต่อเดือน',
     description:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
+      'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ล่าสุดในโตเกียว ตั้งอยู่ในหนึ่งในพื้นที่ที่กำลังเติบโตของโตเกียว',
     services: [
       {
-        name: '3 Nights',
-        desc: 'All 4-Star Felix Hotel',
+        name: '3 คืน',
+        desc: 'ทุกคืนที่โรงแรม 4 ดาว Felix',
       },
       {
-        name: 'Balcony Reservation',
-        desc: 'One Morning on our VIP Balcony',
+        name: 'จองระเบียง',
+        desc: 'เช้าหนึ่งวันที่ระเบียง VIP ของเรา',
       },
       {
-        name: 'Walking Tour',
-        desc: 'Walking on side the beach',
+        name: 'ทัวร์เท้า',
+        desc: 'เดินเล่นริมหาด',
       },
       {
-        name: 'VIP Dinner',
-        desc: 'Seafood will make you happier',
+        name: 'อาหารค่ำ VIP',
+        desc: 'อาหารทะเลที่ทำให้คุณมีความสุข',
       },
     ],
   },
   {
     id: '2',
-    packageName: 'Primium Package',
-    price: '$599,99',
-    type: 'per month',
+    packageName: 'แพ็คเกจพรีเมียม',
+    price: '19,997 บาท',
+    type: 'ต่อเดือน',
     description:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
+      'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ล่าสุดในโตเกียว ตั้งอยู่ในหนึ่งในพื้นที่ที่กำลังเติบโตของโตเกียว',
     services: [
       {
-        name: '3 Nights',
-        desc: 'All 4-Star Felix Hotel',
+        name: '3 คืน',
+        desc: 'ทุกคืนที่โรงแรม 4 ดาว Felix',
       },
       {
-        name: 'Balcony Reservation',
-        desc: 'One Morning on our VIP Balcony',
+        name: 'จองระเบียง',
+        desc: 'เช้าหนึ่งวันที่ระเบียง VIP ของเรา',
       },
       {
-        name: 'Walking Tour',
-        desc: 'Walking on side the beach',
+        name: 'ทัวร์เท้า',
+        desc: 'เดินเล่นริมหาด',
       },
       {
-        name: 'VIP Dinner',
-        desc: 'Seafood will make you happier',
+        name: 'อาหารค่ำ VIP',
+        desc: 'อาหารทะเลที่ทำให้คุณมีความสุข',
       },
     ],
   },
   {
     id: '3',
-    packageName: 'Lux Package',
-    price: '$799,99',
-    type: 'per month',
+    packageName: 'แพ็คเกจหรูหรา',
+    price: '26,663 บาท',
+    type: 'ต่อเดือน',
     description:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
+      'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ล่าสุดในโตเกียว ตั้งอยู่ในหนึ่งในพื้นที่ที่กำลังเติบโตของโตเกียว',
     services: [
       {
-        name: '3 Nights',
-        desc: 'All 4-Star Felix Hotel',
+        name: '3 คืน',
+        desc: 'ทุกคืนที่โรงแรม 4 ดาว Felix',
       },
       {
-        name: 'Balcony Reservation',
-        desc: 'One Morning on our VIP Balcony',
+        name: 'จองระเบียง',
+        desc: 'เช้าหนึ่งวันที่ระเบียง VIP ของเรา',
       },
       {
-        name: 'Walking Tour',
-        desc: 'Walking on side the beach',
+        name: 'ทัวร์เท้า',
+        desc: 'เดินเล่นริมหาด',
       },
       {
-        name: 'VIP Dinner',
-        desc: 'Seafood will make you happier',
+        name: 'อาหารค่ำ VIP',
+        desc: 'อาหารทะเลที่ทำให้คุณมีความสุข',
       },
     ],
   },
   {
     id: '4',
-    packageName: 'VIP Package',
-    price: '$999,99',
-    type: 'per month',
+    packageName: 'แพ็คเกจ VIP',
+    price: '33,330 บาท',
+    type: 'ต่อเดือน',
     description:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
+      'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ล่าสุดในโตเกียว ตั้งอยู่ในหนึ่งในพื้นที่ที่กำลังเติบโตของโตเกียว',
     services: [
       {
-        name: '3 Nights',
-        desc: 'All 4-Star Felix Hotel',
+        name: '3 คืน',
+        desc: 'ทุกคืนที่โรงแรม 4 ดาว Felix',
       },
       {
-        name: 'Balcony Reservation',
-        desc: 'One Morning on our VIP Balcony',
+        name: 'จองระเบียง',
+        desc: 'เช้าหนึ่งวันที่ระเบียง VIP ของเรา',
       },
       {
-        name: 'Walking Tour',
-        desc: 'Walking on side the beach',
+        name: 'ทัวร์เท้า',
+        desc: 'เดินเล่นริมหาด',
       },
       {
-        name: 'VIP Dinner',
-        desc: 'Seafood will make you happier',
+        name: 'อาหารค่ำ VIP',
+        desc: 'อาหารทะเลที่ทำให้คุณมีความสุข',
       },
     ],
   },

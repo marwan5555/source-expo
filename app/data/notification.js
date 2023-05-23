@@ -4,31 +4,31 @@ const NotificationData = [
   {
     id: '0',
     title: 'Obasey Chidy',
-    description: 'Its time to build a difference ...',
+    description: 'ถึงเวลาที่จะสร้างความแตกต่าง...',
     image: Images.avata1,
-    date: 'Dec 11, 2018',
-  },
-  {
+    date: '11 ธันวาคม 2018',
+    },
+    {
     id: '1',
     title: 'Steve Garrett',
-    description: 'Its time to build a difference ...',
+    description: 'ถึงเวลาที่จะสร้างความแตกต่าง...',
     image: Images.avata2,
-    date: 'Dec 11, 2018',
-  },
-  {
+    date: '11 ธันวาคม 2018',
+    },
+    {
     id: '2',
     title: 'Luvleen Lawrence',
-    description: 'Its time to build a difference ...',
+    description: 'ถึงเวลาที่จะสร้างความแตกต่าง...',
     image: Images.avata3,
-    date: 'Dec 11, 2018',
-  },
-  {
+    date: '11 ธันวาคม 2018',
+    },
+    {
     id: '3',
     title: 'Tom Hardy',
-    description: 'Its time to build a difference ...',
+    description: 'ถึงเวลาที่จะสร้างความแตกต่าง...',
     image: Images.avata4,
-    date: 'Dec 11, 2019',
-  },
+    date: '11 ธันวาคม 2019',
+    },
 ];
 
 export {NotificationData};

@@ -64,7 +64,7 @@ export default function Loading({navigation}) {
     <View style={[styles.container, {backgroundColor: colors.primary}]}>
       <Image source={Images.logo} style={styles.logo} resizeMode="contain" />
       <View style={styles.content}>
-        <Text style={styles.title}>Felix Travel</Text>
+        <Text style={styles.title}>BanPhuKhaoThong</Text>
         <ActivityIndicator
           size="large"
           color={BaseColor.whiteColor}

@@ -7,20 +7,20 @@ const ReviewData = [
     name: 'Grigoriy Kozhukhov',
     rate: 4,
     date: 'Jun 2018',
-    title: 'Nice Place',
+    title: 'สถานที่ที่ดี',
     comment:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
-  },
-  {
+    'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ที่สุดในโตเกียว ตั้งอยู่ในหนึ่งในเขตที่กำลังเจริญเติบโตของโตเกียว',
+    },
+    {
     id: '2',
     source: Images.profile4,
     name: 'Ea Tipene',
     rate: 4,
     date: 'Jun 2018',
-    title: 'Great for families',
+    title: 'เหมาะสำหรับครอบครัว',
     comment:
-      'Andaz Tokyo Toranomon Hills is one of the newest luxury hotels in Tokyo. Located in one of the uprising areas of Tokyo',
-  },
+    'Andaz Tokyo Toranomon Hills เป็นหนึ่งในโรงแรมหรูใหม่ที่สุดในโตเกียว ตั้งอยู่ในหนึ่งในเขตที่กำลังเจริญเติบโตของโตเกียว',
+    },
 ];
 
 export {ReviewData};
