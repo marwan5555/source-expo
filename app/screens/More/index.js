@@ -11,11 +11,11 @@ export default function More({navigation}) {
 
   const [refreshing] = useState(false);
   const [screen] = useState([
-    {
-      screen: 'ProfileExample',
-      icon: 'users',
-      title: '8 User Profiles',
-    },
+    // {
+    //   screen: 'ProfileExample',
+    //   icon: 'users',
+    //   title: '8 User Profiles',
+    // },
     {
       screen: 'AboutUs',
       icon: 'home',
@@ -26,16 +26,16 @@ export default function More({navigation}) {
       icon: 'phone-square',
       title: 'ContactUs',
     },
-    {
-      screen: 'OurService',
-      icon: 'cubes',
-      title: 'Our Service',
-    },
-    {
-      screen: 'PricingTable',
-      icon: 'dollar-sign',
-      title: 'Pricing Table',
-    },
+    // {
+    //   screen: 'OurService',
+    //   icon: 'cubes',
+    //   title: 'Our Service',
+    // },
+    // {
+    //   screen: 'PricingTable',
+    //   icon: 'dollar-sign',
+    //   title: 'Pricing Table',
+    // },
     {
       screen: 'Review',
       icon: 'comments',
@@ -51,23 +51,22 @@ export default function More({navigation}) {
       icon: 'comment',
       title: 'Messenger',
     },
-    {
-      screen: 'Coupons',
-      icon: 'barcode',
-      title: 'Coupons',
-    },
-    {
-      screen: 'NotFound',
-      icon: 'wrench',
-      title: 'Pange Not Found',
-    },
+    // {
+    //   screen: 'Coupons',
+    //   icon: 'barcode',
+    //   title: 'Coupons',
+    // },
+    // {
+    //   screen: 'NotFound',
+    //   icon: 'wrench',
+    //   title: 'Pange Not Found',
+    // },
   ]);
 
   return (
     <View style={{flex: 1}}>
       <Header
         title={t('more')}
-        subTitle="Profile 8 Screens and More"
         renderLeft={() => {
           return (
             <Icon

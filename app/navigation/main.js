@@ -93,14 +93,14 @@ export default function Main() {
         name="BottomTabNavigator"
         component={BottomTabNavigator}
       />
-      {/* <MainStack.Screen name="Profile1" component={Profile1} />
+      <MainStack.Screen name="Profile1" component={Profile1} />
       <MainStack.Screen name="Profile2" component={Profile2} />
       <MainStack.Screen name="Profile3" component={Profile3} />
       <MainStack.Screen name="Profile4" component={Profile4} />
       <MainStack.Screen name="Profile5" component={Profile5} />
       <MainStack.Screen name="Profile6" component={Profile6} />
       <MainStack.Screen name="Profile7" component={Profile7} />
-      <MainStack.Screen name="Profile8" component={Profile8} /> */}
+      <MainStack.Screen name="Profile8" component={Profile8} />
       <MainStack.Screen name="More" component={More} />
       <MainStack.Screen name="Tour" component={Tour} />
       <MainStack.Screen name="Car" component={Car} />
