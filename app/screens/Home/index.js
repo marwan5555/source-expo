@@ -30,26 +30,26 @@ export default function Home({navigation}) {
       name: 'tours',
       route: 'Tour',
     },
-    {
-      icon: 'car-alt',
-      name: 'car',
-      route: 'OverViewCar',
-    },
-    {
-      icon: 'plane',
-      name: 'flight',
-      route: 'FlightSearch',
-    },
-    {
-      icon: 'ship',
-      name: 'cruise',
-      route: 'CruiseSearch',
-    },
-    {
-      icon: 'bus',
-      name: 'bus',
-      route: 'BusSearch',
-    },
+    // {
+    //   icon: 'car-alt',
+    //   name: 'car',
+    //   route: 'OverViewCar',
+    // },
+    // {
+    //   icon: 'plane',
+    //   name: 'flight',
+    //   route: 'FlightSearch',
+    // },
+    // {
+    //   icon: 'ship',
+    //   name: 'cruise',
+    //   route: 'CruiseSearch',
+    // },
+    // {
+    //   icon: 'bus',
+    //   name: 'bus',
+    //   route: 'BusSearch',
+    // },
     {
       icon: 'star',
       name: 'event',
