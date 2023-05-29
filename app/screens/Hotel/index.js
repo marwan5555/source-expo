@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {FlatList, RefreshControl, View, Animated} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, HotelItem, FilterSort} from '@components';
@@ -12,7 +12,7 @@ export default function Hotel({navigation}) {
   const {t} = useTranslation();
 
   const [modeView, setModeView] = useState('block');
-  const [hotels] = useState(HotelData);
+  const [hotels,setHotel] = useState();
   const [refreshing] = useState(false);
   const scrollAnim = new Animated.Value(0);
   const offsetAnim = new Animated.Value(0);
@@ -28,7 +28,13 @@ export default function Hotel({navigation}) {
     0,
     40,
   );
-
+  useEffect(() => {
+    fetch('https://onetravel.click/app/hotels.php')
+      .then(response => response.json())
+      .then(data => {
+        setHotel(data);
+      });
+  }, []);
   const onChangeSort = () => {};
 
   /**

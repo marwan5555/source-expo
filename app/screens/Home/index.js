@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {View, Animated, TouchableOpacity, FlatList} from 'react-native';
 import {
   Image,
@@ -30,26 +30,6 @@ export default function Home({navigation}) {
       name: 'tours',
       route: 'Tour',
     },
-    // {
-    //   icon: 'car-alt',
-    //   name: 'car',
-    //   route: 'OverViewCar',
-    // },
-    // {
-    //   icon: 'plane',
-    //   name: 'flight',
-    //   route: 'FlightSearch',
-    // },
-    // {
-    //   icon: 'ship',
-    //   name: 'cruise',
-    //   route: 'CruiseSearch',
-    // },
-    // {
-    //   icon: 'bus',
-    //   name: 'bus',
-    //   route: 'BusSearch',
-    // },
     {
       icon: 'star',
       name: 'event',
@@ -61,27 +41,29 @@ export default function Home({navigation}) {
       route: 'More',
     },
   ]);
-  const [relate] = useState([
-    {
-      id: '0',
-      image: Images.event4,
-      title: 'BBC Music Introducing',
-      time: 'Thu, Oct 31, 9:00am',
-      location: 'Tobacco Dock, London',
-    },
-    {
-      id: '1',
-      image: Images.event5,
-      title: 'Bearded Theory Spring Gathering',
-      time: 'Thu, Oct 31, 9:00am',
-      location: 'Tobacco Dock, London',
-    },
-  ]);
+  const [relate,setRelate] = useState();
+  
   const [promotion] = useState(PromotionData);
   const [tours] = useState(TourData);
-  const [hotels] = useState(HotelData);
+  const [hotels,setHotel] = useState();
   const [heightHeader, setHeightHeader] = useState(Utils.heightHeader());
   const deltaY = new Animated.Value(0);
+
+  useEffect(() => {
+    fetch('https://onetravel.click/app/eventslistdata.php')
+      .then(response => response.json())
+      .then(data => {
+        setRelate(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch('https://onetravel.click/app/hotels.php')
+      .then(response => response.json())
+      .then(data => {
+        setHotel(data);
+      });
+  }, []);
 
   /**
    * @description Show icon services on form searching
@@ -188,18 +170,18 @@ export default function Home({navigation}) {
                   contentContainerStyle={{paddingLeft: 5, paddingRight: 20}}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
-                  data={promotion}
+                  data={hotels}
                   keyExtractor={(item, index) => item.id}
                   renderItem={({item, index}) => (
                     <Card
                       style={[styles.promotionItem, {marginLeft: 15}]}
-                      image={item.image}
+                      image={item.image_path}
                       onPress={() => navigation.navigate('HotelDetail')}>
                       <Text subhead whiteColor>
-                        {item.title1}
+                        {item.name}
                       </Text>
                       <Text title2 whiteColor semibold>
-                        {item.title2}
+                        {item.location}
                       </Text>
                       <View style={styles.contentCartPromotion}>
                         <Button
@@ -234,7 +216,7 @@ export default function Home({navigation}) {
                 renderItem={({item, index}) => (
                   <Card
                     style={[styles.tourItem, {marginLeft: 15}]}
-                    image={item.image}
+                    image={item.image_path}
                     onPress={() => navigation.navigate('TourDetail')}>
                     <Text headline whiteColor semibold>
                       {item.name}
@@ -267,7 +249,7 @@ export default function Home({navigation}) {
                       title={item.title}
                       time={item.time}
                       location={item.location}
-                      onPress={() => navigation.navigate('EventDetail')}
+                      onPress={() => navigation.navigate('EventDetail',{id:item.id,image:item.image,title:item.title,subtitle:item.subtitle,location:item.location,time:item.time})}
                       style={{marginLeft: 15}}
                     />
                   )}
@@ -292,7 +274,7 @@ export default function Home({navigation}) {
                 renderItem={({item, index}) => (
                   <HotelItem
                     grid
-                    image={item.image}
+                    image={item.image_path}
                     name={item.name}
                     location={item.location}
                     price={item.price}

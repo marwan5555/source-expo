@@ -13,7 +13,7 @@ export default function EventCard(props) {
       style={[styles.content, {borderColor: colors.border}, style]}
       onPress={onPress}
       activeOpacity={0.9}>
-      <Image source={image} style={styles.imageBanner} />
+      <Image source={{uri:image}} style={styles.imageBanner} />
       <View
         style={{
           padding: 10,

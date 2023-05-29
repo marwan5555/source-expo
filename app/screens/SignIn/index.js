@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert
 } from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, Text, Button, TextInput} from '@components';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
+import axios from 'axios';
 
 export default function SignIn({navigation}) {
   const {colors} = useTheme();
@@ -21,32 +23,57 @@ export default function SignIn({navigation}) {
     android: 20,
   });
 
-  const [id, setId] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState({id: true, password: true});
+  const [success, setSuccess] = useState({email: true, password: true});
 
   /**
    * call when action login
    *
    */
   const onLogin = () => {
-    if (id == '' || password == '') {
+    if (email == '' || password == '') {
       setSuccess({
         ...success,
-        id: false,
+        email: false,
         password: false,
       });
     } else {
       setLoading(true);
-      dispatch(
-        AuthActions.authentication(true, response => {
+      axios.post('https://onetravel.click/app/login.php', { 
+        email: email,
+        password: password 
+      })
+      .then((response) => {
+        console.log(response);
+        // Handle the response from the server
+        if (response.data.result === 'success') {
+          // Login successful
+          dispatch(
+            AuthActions.authentication(true, response => {
+              setLoading(false);
+              navigation.goBack();
+            }),
+          );
+        } else if (response.data.error === 'Invalid password') {
+          // Handle invalid password here
+          alert('Invalid password');
           setLoading(false);
-          navigation.goBack();
-        }),
-      );
+        } else {
+          // Handle other errors here
+          Alert.alert('แจ้งเตือน', response.data.result);
+          setLoading(false);
+          // Display error message here
+        }
+      }, (error) => {
+        console.log(error);
+        setLoading(false);
+        // Handle server errors here
+      });
     }
   };
+  
 
   return (
     <View style={{flex: 1}}>
@@ -75,16 +102,16 @@ export default function SignIn({navigation}) {
           style={{flex: 1}}>
           <View style={styles.contain}>
             <TextInput
-              onChangeText={text => setId(text)}
+              onChangeText={text => setemail(text)}
               onFocus={() => {
                 setSuccess({
                   ...success,
-                  id: true,
+                  email: true,
                 });
               }}
-              placeholder={t('input_id')}
-              success={success.id}
-              value={id}
+              placeholder={t('input_emdil')}
+              success={success.email}
+              value={email}
             />
             <TextInput
               style={{marginTop: 10}}
@@ -109,12 +136,6 @@ export default function SignIn({navigation}) {
               }}>
               {t('sign_in')}
             </Button>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ResetPassword')}>
-              <Text body1 grayColor style={{marginTop: 25}}>
-                {t('forgot_your_password')}
-              </Text>
-            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

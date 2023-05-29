@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {FlatList, RefreshControl, View, Animated} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, EventItem, FilterSort} from '@components';
@@ -28,8 +28,15 @@ export default function Event({navigation}) {
 
   const [refreshing] = useState(false);
   const [modeView, setModeView] = useState('block');
-  const [list] = useState(EventListData);
+  const [list,setList] = useState();
 
+  useEffect(() => {
+    fetch('https://onetravel.click/app/eventslistdata.php')
+      .then(response => response.json())
+      .then(data => {
+        setList(data);
+      });
+  }, []);
   /**
    * call when on change Sort
    */

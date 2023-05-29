@@ -22,10 +22,8 @@ export default function ProfileEdit({navigation}) {
     android: 20,
   });
 
-  const [id, setId] = useState(UserData[0].id);
   const [name, setName] = useState(UserData[0].name);
   const [email, setEmail] = useState(UserData[0].email);
-  const [address, setAddress] = useState(UserData[0].address);
   const [image] = useState(UserData[0].image);
   const [loading, setLoading] = useState(false);
 
@@ -64,11 +62,6 @@ export default function ProfileEdit({navigation}) {
                 {t('account')}
               </Text>
             </View>
-            <TextInput
-              onChangeText={text => setId(text)}
-              placeholder={t('input_id')}
-              value={id}
-            />
             <View style={styles.contentTitle}>
               <Text headline semibold>
                 {t('name')}
@@ -88,16 +81,6 @@ export default function ProfileEdit({navigation}) {
               onChangeText={text => setEmail(text)}
               placeholder={t('input_email')}
               value={email}
-            />
-            <View style={styles.contentTitle}>
-              <Text headline semibold>
-                {t('address')}
-              </Text>
-            </View>
-            <TextInput
-              onChangeText={text => setAddress(text)}
-              placeholder={t('input_address')}
-              value={address}
             />
           </ScrollView>
           <View style={{paddingVertical: 15, paddingHorizontal: 20}}>

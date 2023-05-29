@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {RefreshControl, FlatList, View} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, PostItem, ProfileAuthor} from '@components';
@@ -11,7 +11,17 @@ export default function Post({navigation}) {
   const {t} = useTranslation();
 
   const [refreshing] = useState(false);
-  const [posts] = useState(PostData);
+  const [posts,setPost] = useState([]);
+
+  useEffect(() => {
+    fetch('https://onetravel.click/app/post.php')
+      .then(response => response.json())
+      .then(data => {
+        setPost(data);
+      });
+  }, []);
+
+  console.log(posts);
 
   return (
     <View style={{flex: 1}}>
@@ -32,7 +42,7 @@ export default function Post({navigation}) {
           keyExtractor={(item, index) => item.id}
           renderItem={({item, index}) => (
             <PostItem
-              image={item.image}
+              image={item.image_path}
               title={item.title}
               description={item.description}
               onPress={() => navigation.navigate('PostDetail')}>

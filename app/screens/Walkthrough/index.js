@@ -65,17 +65,6 @@ export default function Walkthrough({navigation}) {
         <View style={{width: '100%'}}>
           <Button
             full
-            style={{
-              backgroundColor: BaseColor.navyBlue,
-              marginTop: 20,
-            }}
-            onPress={() => {
-              authentication();
-            }}>
-            {t('login_facebook')}
-          </Button>
-          <Button
-            full
             style={{marginTop: 20}}
             loading={loading}
             onPress={() => navigation.navigate('SignIn')}>
@@ -85,11 +74,6 @@ export default function Walkthrough({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Text body1 grayColor>
                 {t('not_have_account')}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => authentication()}>
-              <Text body1 primaryColor>
-                {t('join_now')}
               </Text>
             </TouchableOpacity>
           </View>

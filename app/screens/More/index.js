@@ -11,56 +11,21 @@ export default function More({navigation}) {
 
   const [refreshing] = useState(false);
   const [screen] = useState([
-    // {
-    //   screen: 'ProfileExample',
-    //   icon: 'users',
-    //   title: '8 User Profiles',
-    // },
-    {
-      screen: 'AboutUs',
-      icon: 'home',
-      title: 'About Us',
-    },
-    {
-      screen: 'ContactUs',
-      icon: 'phone-square',
-      title: 'ContactUs',
-    },
-    // {
-    //   screen: 'OurService',
-    //   icon: 'cubes',
-    //   title: 'Our Service',
-    // },
-    // {
-    //   screen: 'PricingTable',
-    //   icon: 'dollar-sign',
-    //   title: 'Pricing Table',
-    // },
     {
       screen: 'Review',
       icon: 'comments',
-      title: 'User Reviews',
+      title: 'รีวิว',
     },
     {
       screen: 'Notification',
       icon: 'paper-plane',
-      title: 'Notification List',
+      title: 'แจ้งเตือน',
     },
     {
       screen: 'Messages',
       icon: 'comment',
-      title: 'Messenger',
+      title: 'ข้อความ',
     },
-    // {
-    //   screen: 'Coupons',
-    //   icon: 'barcode',
-    //   title: 'Coupons',
-    // },
-    // {
-    //   screen: 'NotFound',
-    //   icon: 'wrench',
-    //   title: 'Pange Not Found',
-    // },
   ]);
 
   return (

@@ -34,7 +34,7 @@ export default function HotelItem(props) {
     return (
       <View style={style}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.blockImage} />
+          <Image source={{uri:image}} style={styles.blockImage} />
         </TouchableOpacity>
         <View style={{paddingHorizontal: 20}}>
           <Text title2 semibold style={{marginTop: 5}} numberOfLines={1}>

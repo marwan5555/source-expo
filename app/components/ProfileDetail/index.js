@@ -34,8 +34,12 @@ export default function ProfileDetail(props) {
             </Text>
           </View>
         </View>
-        <View style={{alignItems: 'flex-start'}}>
-          <Text headline semibold numberOfLines={1}>
+        <View style={{alignItems: 'center'}}>
+          <Text
+            headline
+            semibold
+            numberOfLines={1}
+            style={{textAlign: 'center'}}>
             {textFirst}
           </Text>
           <Text
@@ -52,16 +56,6 @@ export default function ProfileDetail(props) {
           </Text>
         </View>
       </View>
-      {icon && (
-        <View style={[styles.contentRight, styleRight]}>
-          <Icon
-            name="angle-right"
-            size={18}
-            color={BaseColor.grayColor}
-            enableRTL={true}
-          />
-        </View>
-      )}
     </TouchableOpacity>
   );
 }

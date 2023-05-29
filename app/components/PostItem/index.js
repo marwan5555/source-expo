@@ -10,8 +10,8 @@ export default function PostItem(props) {
   return (
     <View style={style}>
       {children}
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-        <Image style={styles.imagePost} source={image} />
+      <TouchableOpacity  activeOpacity={0.9}>
+        <Image style={styles.imagePost} source={{uri:image}} />
         <Icon
           name="bookmark"
           solid

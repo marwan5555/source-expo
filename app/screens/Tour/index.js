@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState , useEffect} from 'react';
 import {FlatList, RefreshControl, View, Animated} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, TourItem, FilterSort} from '@components';
@@ -28,7 +28,13 @@ export default function Tour({navigation}) {
   const [refreshing] = useState(false);
   const [modeView, setModeView] = useState('block');
   const [tours] = useState(TourData);
-
+  useEffect(() => {
+    fetch('https://onetravel.click/app/tours.php')
+      .then(response => response.json())
+      .then(data => {
+        setList(data);
+      });
+  }, []);
   const onChangeSort = () => {};
 
   /**
