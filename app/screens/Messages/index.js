@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   FlatList,
@@ -10,50 +10,75 @@ import {BaseStyle, Images, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, Image, Text, TextInput} from '@components';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
+import {io} from 'socket.io-client';
 
-export default function Messages({navigation}) {
+export default function Messages() {
   const {t} = useTranslation();
   const {colors} = useTheme();
   const offsetKeyboard = Platform.select({
     ios: 0,
     android: 20,
   });
-  const refFlatList = useRef(null);
+  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      message: 'Hello developer',
-      created: '08:43 AM',
-      user: {
-        id: 1,
-        name: 'Steve Garrett',
-        avatar: Images.profile2,
-      },
-    },
-    {
-      id: 2,
-      message: 'You are there. Can you help me ?',
-      created: '08:43 AM',
-      user: {
-        id: 1,
-        name: 'Steve Garrett',
-        avatar: Images.profile2,
-      },
-    },
-    {
-      id: 3,
-      message: "Hi, I'm here !\nHow can I help you?",
-      created: '08:45 AM',
-    },
-  ]);
 
-  const renderItem = item => {
+  useEffect(() => {
+    // เชื่อมต่อกับเซิร์ฟเวอร์ Socket.io
+    const newSocket = io('http://your-socket-server-url');
+
+    // เมื่อเชื่อมต่อสำเร็จ
+    newSocket.on('connect', () => {
+      console.log('Connected to Socket.io server');
+    });
+
+    // เมื่อตัดการเชื่อมต่อ
+    newSocket.on('disconnect', () => {
+      console.log('Disconnected from Socket.io server');
+    });
+
+    // เมื่อได้รับข้อความใหม่
+    newSocket.on('receiveMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // กำหนดค่า socket และเริ่มต้นการเชื่อมต่อ
+    setSocket(newSocket);
+    newSocket.connect();
+
+    // ตอนถอดการใช้งานคอมโพเนนต์ ให้ตัดการเชื่อมต่อ
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (socket && input.trim() !== '') {
+      const message = {
+        id: Math.random().toString(),
+        message: input,
+        created: new Date().toLocaleTimeString(),
+      };
+
+      // ส่งข้อความผ่าน Socket.io
+      socket.emit('sendMessage', message);
+
+      // เพิ่มข้อความที่ส่งลงในรายชื่อข้อความ
+      setMessages((prevMessages) => [...prevMessages, message]);
+
+      // ล้างข้อความที่พิมพ์ในช่องข้อความ
+      setInput('');
+    }
+  };
+
+  const renderItem = ({item}) => {
     if (item.user) {
       return (
         <View style={styles.userContent}>
           <Image
-            source={Images.profile2}
+            source={item.user.avatar}
             style={[styles.avatar, {borderColor: colors.border}]}
           />
           <View style={{paddingHorizontal: 8, flex: 7}}>
@@ -94,65 +119,31 @@ export default function Messages({navigation}) {
     );
   };
 
-  const sendMessage = () => {
-    if (input != '') {
-      messages.push({
-        id: Math.random().toString(),
-        message: input,
-        created: '08:45 AM',
-      });
-      setInput('');
-      setMessages(messages);
-      if (refFlatList.current) {
-        setTimeout(() => {
-          refFlatList.current.scrollToEnd({animated: false});
-        }, 500);
-      }
-    }
-  };
-
   return (
     <View style={{flex: 1}}>
-      <Header
-        title={t('messages')}
-        renderLeft={() => {
-          return (
-            <Icon
-              name="arrow-left"
-              size={20}
-              color={colors.primary}
-              enableRTL={true}
-            />
-          );
-        }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }}
-      />
+      <Header title={t('messages')} />
       <SafeAreaView
         style={BaseStyle.safeAreaView}
         edges={['right', 'left', 'bottom']}>
         <KeyboardAvoidingView
-          style={{flex: 1, justifyContent: 'flex-end'}}
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}
           keyboardVerticalOffset={offsetKeyboard}
-          enabled>
+          style={{flex: 1}}>
           <View style={{flex: 1}}>
             <FlatList
-              ref={refFlatList}
               data={messages}
-              keyExtractor={(item, index) => item.id.toString()}
-              renderItem={({item}) => renderItem(item)}
+              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
             />
           </View>
-
           <View style={styles.inputContent}>
             <View style={{flex: 1}}>
               <TextInput
-                onChangeText={text => setInput(text)}
-                onSubmitEditing={() => sendMessage()}
+                style={styles.input}
                 placeholder={t('type_message')}
+                onChangeText={setInput}
                 value={input}
+                onSubmitEditing={sendMessage}
               />
             </View>
             <TouchableOpacity

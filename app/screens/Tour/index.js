@@ -27,30 +27,21 @@ export default function Tour({navigation}) {
 
   const [refreshing] = useState(false);
   const [modeView, setModeView] = useState('block');
-  const [tours] = useState(TourData);
+  const [tours,setTours] = useState();
   useEffect(() => {
     fetch('https://onetravel.click/app/tours.php')
       .then(response => response.json())
       .then(data => {
-        setList(data);
+        setTours(data);
       });
   }, []);
   const onChangeSort = () => {};
 
-  /**
-   * @description Open modal when filterring mode is applied
-   * @author Passion UI <passionui.com>
-   * @date 2019-08-03
-   */
   const onFilter = () => {
     navigation.navigate('Filter');
   };
 
-  /**
-   * @description Open modal when view mode is pressed
-   * @author Passion UI <passionui.com>
-   * @date 2019-08-03
-   */
+
   const onChangeView = () => {
     Utils.enableExperimental();
     switch (modeView) {
@@ -70,12 +61,7 @@ export default function Tour({navigation}) {
     }
   };
 
-  /**
-   * @description Render container view
-   * @author Passion UI <passionui.com>
-   * @date 2019-08-03
-   * @returns
-   */
+ 
   const renderContent = () => {
     const navbarTranslate = clampedScroll.interpolate({
       inputRange: [0, 40],
@@ -135,7 +121,7 @@ export default function Tour({navigation}) {
                     navigation.navigate('TourDetail');
                   }}
                   onPressBookNow={() => {
-                    navigation.navigate('PreviewBooking');
+                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
                   }}
                 />
               )}
@@ -213,7 +199,7 @@ export default function Tour({navigation}) {
                     navigation.navigate('TourDetail');
                   }}
                   onPressBookNow={() => {
-                    navigation.navigate('PreviewBooking');
+                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
                   }}
                 />
               )}
@@ -288,7 +274,7 @@ export default function Tour({navigation}) {
                     navigation.navigate('TourDetail');
                   }}
                   onPressBookNow={() => {
-                    navigation.navigate('PreviewBooking');
+                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
                   }}
                 />
               )}
@@ -361,7 +347,7 @@ export default function Tour({navigation}) {
                     navigation.navigate('TourDetail');
                   }}
                   onPressBookNow={() => {
-                    navigation.navigate('PreviewBooking');
+                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
                   }}
                 />
               )}

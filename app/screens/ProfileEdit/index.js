@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import {View, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
-import {BaseStyle, useTheme} from '@config';
+import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { BaseStyle, useTheme } from '@config';
 import {
   Image,
   Header,
@@ -11,24 +12,43 @@ import {
   TextInput,
 } from '@components';
 import styles from './styles';
-import {UserData} from '@data';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-export default function ProfileEdit({navigation}) {
-  const {colors} = useTheme();
-  const {t} = useTranslation();
+export default function ProfileEdit({ navigation }) {
+  const { colors } = useTheme();
+  const { t } = useTranslation();
   const offsetKeyboard = Platform.select({
     ios: 0,
     android: 20,
   });
 
-  const [name, setName] = useState(UserData[0].name);
-  const [email, setEmail] = useState(UserData[0].email);
-  const [image] = useState(UserData[0].image);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      const uid = await AsyncStorage.getItem('uid');
+      const response = await fetch(`https://onetravel.click/app/user.php?id=${uid}`);
+      const data = await response.json();
+      console.log(data);
+      // Set the user data received from the API to the corresponding state variables
+      setName(data.name);
+      setEmail(data.email);
+      setPhone(data.phone);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         title={t('edit_profile')}
         renderLeft={() => {
@@ -48,11 +68,13 @@ export default function ProfileEdit({navigation}) {
       />
       <SafeAreaView
         style={BaseStyle.safeAreaView}
-        edges={['right', 'left', 'bottom']}>
+        edges={['right', 'left', 'bottom']}
+      >
         <KeyboardAvoidingView
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}
           keyboardVerticalOffset={offsetKeyboard}
-          style={{flex: 1}}>
+          style={{ flex: 1 }}
+        >
           <ScrollView contentContainerStyle={styles.contain}>
             <View>
               <Image source={image} style={styles.thumb} />
@@ -82,8 +104,18 @@ export default function ProfileEdit({navigation}) {
               placeholder={t('input_email')}
               value={email}
             />
+            <View style={styles.contentTitle}>
+              <Text headline semibold>
+                {t('phone')}
+              </Text>
+            </View>
+            <TextInput
+              onChangeText={text => setPhone(text)}
+              placeholder={t('input_phone')}
+              value={phone}
+            />
           </ScrollView>
-          <View style={{paddingVertical: 15, paddingHorizontal: 20}}>
+          <View style={{ paddingVertical: 15, paddingHorizontal: 20 }}>
             <Button
               loading={loading}
               full
@@ -92,7 +124,8 @@ export default function ProfileEdit({navigation}) {
                 setTimeout(() => {
                   navigation.goBack();
                 }, 500);
-              }}>
+              }}
+            >
               {t('confirm')}
             </Button>
           </View>

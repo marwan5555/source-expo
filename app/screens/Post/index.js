@@ -14,7 +14,7 @@ export default function Post({navigation}) {
   const [posts,setPost] = useState([]);
 
   useEffect(() => {
-    fetch('https://onetravel.click/app/post.php')
+    fetch('https://onetravel.click/app/posts.php')
       .then(response => response.json())
       .then(data => {
         setPost(data);

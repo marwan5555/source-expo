@@ -15,9 +15,6 @@ export default function Setting({navigation}) {
 
   const [reminders, setReminders] = useState(true);
 
-  /**
-   * @description Call when reminder option switch on/off
-   */
   const toggleSwitch = value => {
     setReminders(value);
   };
@@ -50,95 +47,6 @@ export default function Setting({navigation}) {
         style={BaseStyle.safeAreaView}
         edges={['right', 'left', 'bottom']}>
         <ScrollView contentContainerStyle={styles.contain}>
-          <TouchableOpacity
-            style={[
-              styles.profileItem,
-              {borderBottomColor: colors.border, borderBottomWidth: 1},
-            ]}
-            onPress={() => {
-              navigation.navigate('ChangeLanguage');
-            }}>
-            <Text body1>{t('language')}</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text body1 grayColor>
-                {Utils.languageFromCode(i18n.language)}
-              </Text>
-              <Icon
-                name="angle-right"
-                size={18}
-                color={colors.primary}
-                style={{marginLeft: 5}}
-                enableRTL={true}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.profileItem,
-              {borderBottomColor: colors.border, borderBottomWidth: 1},
-            ]}
-            onPress={() => {
-              navigation.navigate('ThemeSetting');
-            }}>
-            <Text body1>{t('theme')}</Text>
-            <View
-              style={[styles.themeIcon, {backgroundColor: colors.primary}]}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.profileItem,
-              {borderBottomColor: colors.border, borderBottomWidth: 1},
-            ]}
-            onPress={() => navigation.navigate('SelectFontOption')}>
-            <Text body1>{t('font')}</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text body1 grayColor>
-                {font ?? t('default')}
-              </Text>
-              <Icon
-                name="angle-right"
-                size={18}
-                color={colors.primary}
-                style={{marginLeft: 5}}
-                enableRTL={true}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.profileItem,
-              {borderBottomColor: colors.border, borderBottomWidth: 1},
-            ]}
-            onPress={() => {
-              navigation.navigate('SelectDarkOption');
-            }}>
-            <Text body1>{t('dark_theme')}</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text body1 grayColor>
-                {darkOption}
-              </Text>
-              <Icon
-                name="angle-right"
-                size={18}
-                color={colors.primary}
-                style={{marginLeft: 5}}
-                enableRTL={true}
-              />
-            </View>
-          </TouchableOpacity>
           <View
             style={[
               styles.profileItem,

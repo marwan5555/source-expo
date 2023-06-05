@@ -31,11 +31,6 @@ export default function Home({navigation}) {
       route: 'Tour',
     },
     {
-      icon: 'star',
-      name: 'event',
-      route: 'DashboardEvent',
-    },
-    {
       icon: 'ellipsis-h',
       name: 'more',
       route: 'More',
@@ -44,7 +39,7 @@ export default function Home({navigation}) {
   const [relate,setRelate] = useState();
   
   const [promotion] = useState(PromotionData);
-  const [tours] = useState(TourData);
+  const [tours,setTours] = useState();
   const [hotels,setHotel] = useState();
   const [heightHeader, setHeightHeader] = useState(Utils.heightHeader());
   const deltaY = new Animated.Value(0);
@@ -64,13 +59,15 @@ export default function Home({navigation}) {
         setHotel(data);
       });
   }, []);
+  useEffect(() => {
+    fetch('https://onetravel.click/app/tours.php')
+      .then(response => response.json())
+      .then(data => {
+        setTours(data);
+      });
+  }, []);
 
-  /**
-   * @description Show icon services on form searching
-   * @author Passion UI <passionui.com>
-   * @date 2019-08-03
-   * @returns
-   */
+
   const renderIconService = () => {
     return (
       <FlatList
@@ -176,7 +173,7 @@ export default function Home({navigation}) {
                     <Card
                       style={[styles.promotionItem, {marginLeft: 15}]}
                       image={item.image_path}
-                      onPress={() => navigation.navigate('HotelDetail')}>
+                      onPress={() => navigation.navigate('HotelDetail',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details})}>
                       <Text subhead whiteColor>
                         {item.name}
                       </Text>
@@ -187,7 +184,7 @@ export default function Home({navigation}) {
                         <Button
                           style={styles.btnPromotion}
                           onPress={() => {
-                            navigation.navigate('PreviewBooking');
+                            navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
                           }}>
                           <Text body2 semibold whiteColor>
                             {t('จองตอนนี้')}
@@ -217,7 +214,33 @@ export default function Home({navigation}) {
                   <Card
                     style={[styles.tourItem, {marginLeft: 15}]}
                     image={item.image_path}
-                    onPress={() => navigation.navigate('TourDetail')}>
+                    onPress={() => navigation.navigate('TourDetail',
+                    {id:item.id,
+                    img:item.image_path,
+                    name:item.name,
+                    location:item.location,
+                    travel_time:item.travel_time,
+                    start_time:item.start_time,
+                    last:item.last,
+                    price:item.price,
+                    rating:item.rating,
+                    day1:item.day1,
+                    day2:item.day2,
+                    day3:item.day3,
+                    day4:item.day4,
+                    image_day1:item.image_day1,
+                    image_day2:item.image_day2,
+                    image_day3:item.image_day3,
+                    image_day4:item.image_day4,
+                    name_day1:item.name_day1,
+                    name_day2:item.name_day2,
+                    name_day3:item.name_day3,
+                    name_day4:item.name_day4,
+                    description1:item.description1,
+                    description2:item.description2,
+                    description3:item.description3,
+                    description4:item.description4,
+                    })}>
                     <Text headline whiteColor semibold>
                       {item.name}
                     </Text>
@@ -284,7 +307,19 @@ export default function Home({navigation}) {
                     numReviews={item.numReviews}
                     services={item.services}
                     style={{marginLeft: 15, marginBottom: 15}}
-                    onPress={() => navigation.navigate('HotelDetail')}
+                    onPress={() => navigation.navigate('HotelDetail',
+                    {id:item.id,
+                      image_path:item.image_path,
+                      name:item.name,
+                      location:item.location,
+                      price:item.price,
+                      check_in:item.check_in,
+                      check_out:item.check_out,
+                      days:item.days,
+                      details:item.details,
+                      available:item.available,
+                      rate:item.rate
+                    })}
                   />
                 )}
               />

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, TouchableOpacity} from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useDispatch} from 'react-redux';
 import {AuthActions} from '@actions';
 import {BaseStyle, useTheme} from '@config';
@@ -20,16 +21,34 @@ export default function Profile({navigation}) {
   const {t} = useTranslation();
 
   const [loading, setLoading] = useState(false);
-  const [userData, setUser] = useState();
+  const [userData, setUserData] = useState(null); // เริ่มต้นเป็นค่า null
   const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch('https://onetravel.click/app/user.php')
+    load()
+  }, []);
+
+  const load = async () => {
+    let uid =  await AsyncStorage.getItem("uid");
+    // ส่งข้อมูลการเข้าสู่ระบบไปยัง API เพื่อรับข้อมูลผู้ใช้ที่เข้าสู่ระบบ
+    fetch('https://onetravel.click/app/user.php?id='+uid, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id: 1}), // ส่ง ID ผู้ใช้ที่เข้าสู่ระบบ
+    })
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        setUser(data);
+        setUserData(data);
+      })
+      .catch(error => {
+        console.error(error);
       });
-  }, []);
+
+    
+  }
 
   const onLogOut = () => {
     setLoading(true);
@@ -51,7 +70,9 @@ export default function Profile({navigation}) {
           <View style={styles.contain}>
             {userData && (
               <ProfileDetail
-                image={require('@assets/images/profile-1.jpg')}
+                image={{
+                  uri: 'https://i.pinimg.com/564x/b9/d6/76/b9d6767bbb5ef16297012bf130e98e68.jpg',
+                }}
                 textFirst={userData.name}
               />
             )}

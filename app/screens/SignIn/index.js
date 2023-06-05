@@ -11,6 +11,7 @@ import {
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, Text, Button, TextInput} from '@components';
 import styles from './styles';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useTranslation} from 'react-i18next';
 import axios from 'axios';
 
@@ -49,6 +50,7 @@ export default function SignIn({navigation}) {
         console.log(response);
         // Handle the response from the server
         if (response.data.result === 'success') {
+          AsyncStorage.setItem("uid", response.data.user.id);
           // Login successful
           dispatch(
             AuthActions.authentication(true, response => {
@@ -109,7 +111,7 @@ export default function SignIn({navigation}) {
                   email: true,
                 });
               }}
-              placeholder={t('input_emdil')}
+              placeholder={t('อีเมล์')}
               success={success.email}
               value={email}
             />
@@ -122,7 +124,7 @@ export default function SignIn({navigation}) {
                   password: true,
                 });
               }}
-              placeholder={t('input_password')}
+              placeholder={t('รหัสผ่าน')}
               secureTextEntry={true}
               success={success.password}
               value={password}

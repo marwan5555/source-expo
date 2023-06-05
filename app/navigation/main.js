@@ -74,8 +74,8 @@ import ThemeSetting from '@screens/ThemeSetting';
 import NotFound from '@screens/NotFound';
 /* Bottom Screen */
 import Home from '@screens/Home';
-import Booking from '@screens/Booking';
-import Messenger from '@screens/Messenger';
+import Booking from '@screens/BookingDetail';
+import Messenger from '@screens/Messages';
 import Post from '@screens/Post';
 import Profile from '@screens/Profile';
 

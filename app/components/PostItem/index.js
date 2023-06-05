@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {BaseColor, useTheme} from '@config';
 export default function PostItem(props) {
   const {colors} = useTheme();
-  const {style, children, title, description, onPress, image} = props;
+  const {style, children, title, description, onPress, image,check_in,check_out} = props;
   return (
     <View style={style}>
       {children}
@@ -24,7 +24,9 @@ export default function PostItem(props) {
         <Text headline semibold style={{marginBottom: 6}}>
           {title}
         </Text>
-        <Text body2>{description}</Text>
+        <Text body2>สถานะ: {description}</Text>
+        <Text body2>check in: {check_in}</Text>
+        <Text body2>check out: {check_out}</Text>
       </View>
     </View>
   );
@@ -39,12 +41,16 @@ PostItem.propTypes = {
   ]),
   title: PropTypes.string,
   description: PropTypes.string,
+  check_in: PropTypes.string,
+  check_out: PropTypes.string,
   onPress: PropTypes.func,
 };
 
 PostItem.defaultProps = {
   image: '',
   title: '',
+  check_in:'',
+  check_out:'',
   description: '',
   style: {},
   onPress: () => {},

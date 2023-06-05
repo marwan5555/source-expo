@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {RefreshControl, FlatList, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {RefreshControl, FlatList, View,Image} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {useTranslation} from 'react-i18next';
 import {Header, SafeAreaView, Icon, ListThumbCircle} from '@components';
@@ -11,8 +11,15 @@ export default function Notification({navigation}) {
   const {colors} = useTheme();
 
   const [refreshing] = useState(false);
-  const [notification] = useState(NotificationData);
-
+  const [notification, setNotification] = useState();
+  useEffect(() => {
+    fetch('https://onetravel.click/app/notifications.php')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setNotification(data);
+      });
+  }, []);
   return (
     <View style={{flex: 1}}>
       <Header
@@ -48,7 +55,7 @@ export default function Notification({navigation}) {
           keyExtractor={(item, index) => item.id}
           renderItem={({item, index}) => (
             <ListThumbCircle
-              image={item.image}
+              image={item.image_path}
               txtLeftTitle={item.title}
               txtContent={item.description}
               txtRight={item.date}

@@ -5,7 +5,7 @@ import {Header, SafeAreaView, Icon, Text, Button} from '@components';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
 
-export default function PreviewBooking({navigation}) {
+export default function PreviewBooking({navigation,route}) {
   const {t} = useTranslation();
   const {colors} = useTheme();
 
@@ -13,7 +13,6 @@ export default function PreviewBooking({navigation}) {
     <View style={{flex: 1}}>
       <Header
         title={t('preview_booking')}
-        subTitle="Booking Number GAX02"
         renderLeft={() => {
           return (
             <Icon
@@ -39,7 +38,7 @@ export default function PreviewBooking({navigation}) {
                 {t('hotels')}
               </Text>
               <Text body1 semibold>
-                Hilton San Francisco
+                {route.params.name}
               </Text>
             </View>
             <View
@@ -50,11 +49,9 @@ export default function PreviewBooking({navigation}) {
                 </View>
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                   <Text body2 semibold>
-                    {t('check_in')}
+                    {route.params.check_in}
                   </Text>
-                  <Text caption1 grayColor>
-                    {t('sun')}, 14:00
-                  </Text>
+                
                 </View>
               </View>
               <View style={{flexDirection: 'row', marginTop: 10}}>
@@ -63,11 +60,9 @@ export default function PreviewBooking({navigation}) {
                 </View>
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                   <Text body2 semibold>
-                    {t('check_out')}
+                  {route.params.check_out}
                   </Text>
-                  <Text caption1 grayColor>
-                    {t('mon')}, 14:00
-                  </Text>
+                  
                 </View>
               </View>
               <View style={{flexDirection: 'row', marginTop: 10}}>
@@ -76,7 +71,7 @@ export default function PreviewBooking({navigation}) {
                 </View>
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                   <Text body2 semibold>
-                    1 {t('night')}
+                  {route.params.days}
                   </Text>
                 </View>
               </View>
@@ -90,36 +85,7 @@ export default function PreviewBooking({navigation}) {
                 Standard Twin Room (x1)
               </Text>
               <Text body2 style={{marginBottom: 5}}>
-                Other hygienic practices that the new hotel, among other guests
-              </Text>
-              <Text body2 style={{marginBottom: 5}}>
-                Other hygienic practices that the new hotel, among other guests
-              </Text>
-              <Text body2 style={{marginBottom: 5}}>
-                Other hygienic practices that the new hotel, among other guests
-              </Text>
-            </View>
-            <View
-              style={[styles.blockView, {borderBottomColor: colors.border}]}>
-              <Text body2 style={{marginBottom: 10}}>
-                Contact’s Name
-              </Text>
-              <Text body1 semibold style={{marginBottom: 5}}>
-                Standard Twin Room (x1)
-              </Text>
-              <Text body2 grayColor style={{marginBottom: 5}}>
-                Other hygienic practices that the new hotel — which handles,
-                among other guests, patients seeking medical treatment at the
-                Texas Medical Center — include removing nonessential items like
-                decorative pillows and magazines
-              </Text>
-            </View>
-            <View style={{paddingVertical: 10}}>
-              <Text body2 style={{marginBottom: 10}}>
-                Price Details
-              </Text>
-              <Text body1 semibold style={{marginBottom: 5}}>
-                Standard Twin Room (x1)
+              {route.params.details}              
               </Text>
             </View>
           </View>
@@ -128,16 +94,13 @@ export default function PreviewBooking({navigation}) {
           style={[styles.contentButtonBottom, {borderTopColor: colors.border}]}>
           <View>
             <Text caption1 semibold grayColor>
-              2 {t('day')} / 1 {t('night')}
+            {route.params.days}
             </Text>
             <Text title3 primaryColor semibold>
-              $399.99
-            </Text>
-            <Text caption1 semibold grayColor style={{marginTop: 5}}>
-              2 {t('adults')} / 1 {t('children')}
+             ฿ {route.params.price}
             </Text>
           </View>
-          <Button onPress={() => navigation.navigate('CheckOut')}>
+          <Button onPress={() => navigation.navigate('CheckOut',{id:route.params.id,name:route.params.name,location:route.params.location,image:route.params.image_path,price:route.params.price,check_in:route.params.check_in,check_out:route.params.check_out,days:route.params.days,details:route.params.details})}>
             {t('continue')}
           </Button>
         </View>
