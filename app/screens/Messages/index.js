@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   FlatList,
@@ -6,15 +6,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {BaseStyle, Images, useTheme} from '@config';
-import {Header, SafeAreaView, Icon, Image, Text, TextInput} from '@components';
+import { BaseStyle, Images, useTheme } from '@config';
+import { Header, SafeAreaView, Icon, Image, Text, TextInput } from '@components';
 import styles from './styles';
-import {useTranslation} from 'react-i18next';
-import {io} from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
+import io from 'socket.io-client'; // Import socket.io-client
 
 export default function Messages() {
-  const {t} = useTranslation();
-  const {colors} = useTheme();
+  const { t } = useTranslation();
+  const { colors } = useTheme();
   const offsetKeyboard = Platform.select({
     ios: 0,
     android: 20,
@@ -24,29 +24,23 @@ export default function Messages() {
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    // เชื่อมต่อกับเซิร์ฟเวอร์ Socket.io
+    // Connect to Socket.io server
     const newSocket = io('http://your-socket-server-url');
 
-    // เมื่อเชื่อมต่อสำเร็จ
     newSocket.on('connect', () => {
       console.log('Connected to Socket.io server');
     });
 
-    // เมื่อตัดการเชื่อมต่อ
     newSocket.on('disconnect', () => {
       console.log('Disconnected from Socket.io server');
     });
 
-    // เมื่อได้รับข้อความใหม่
     newSocket.on('receiveMessage', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
-    // กำหนดค่า socket และเริ่มต้นการเชื่อมต่อ
     setSocket(newSocket);
-    newSocket.connect();
 
-    // ตอนถอดการใช้งานคอมโพเนนต์ ให้ตัดการเชื่อมต่อ
     return () => {
       if (socket) {
         socket.disconnect();
@@ -62,13 +56,10 @@ export default function Messages() {
         created: new Date().toLocaleTimeString(),
       };
 
-      // ส่งข้อความผ่าน Socket.io
       socket.emit('sendMessage', message);
 
-      // เพิ่มข้อความที่ส่งลงในรายชื่อข้อความ
       setMessages((prevMessages) => [...prevMessages, message]);
 
-      // ล้างข้อความที่พิมพ์ในช่องข้อความ
       setInput('');
     }
   };
