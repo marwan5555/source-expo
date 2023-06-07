@@ -19,14 +19,14 @@ export default function EventCard(props) {
           padding: 10,
           flexDirection: 'row',
         }}>
-        <View style={{alignItems: 'center', marginRight: 10}}>
+        {/* <View style={{alignItems: 'center', marginRight: 10}}>
           <Text body2 primaryColor semibold>
             OCT
           </Text>
           <Text body1 grayColor semibold>
             31
           </Text>
-        </View>
+        </View> */}
         <View style={{flex: 1, alignItems: 'flex-start'}}>
           <Text body2 semibold numberOfLines={1} style={{flex: 1}}>
             {title}

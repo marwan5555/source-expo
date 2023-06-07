@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { BaseStyle, useTheme } from '@config';
+import {View, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
+import {BaseStyle, useTheme} from '@config';
 import {
   Image,
   Header,
@@ -12,11 +12,11 @@ import {
   TextInput,
 } from '@components';
 import styles from './styles';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-export default function ProfileEdit({ navigation }) {
-  const { colors } = useTheme();
-  const { t } = useTranslation();
+export default function ProfileEdit({navigation}) {
+  const {colors} = useTheme();
+  const {t} = useTranslation();
   const offsetKeyboard = Platform.select({
     ios: 0,
     android: 20,
@@ -35,7 +35,9 @@ export default function ProfileEdit({ navigation }) {
   const loadUserData = async () => {
     try {
       const uid = await AsyncStorage.getItem('uid');
-      const response = await fetch(`https://onetravel.click/app/user.php?id=${uid}`);
+      const response = await fetch(
+        `https://onetravel.click/app/user.php?id=${uid}`,
+      );
       const data = await response.json();
       console.log(data);
       // Set the user data received from the API to the corresponding state variables
@@ -48,7 +50,7 @@ export default function ProfileEdit({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <Header
         title={t('edit_profile')}
         renderLeft={() => {
@@ -68,13 +70,11 @@ export default function ProfileEdit({ navigation }) {
       />
       <SafeAreaView
         style={BaseStyle.safeAreaView}
-        edges={['right', 'left', 'bottom']}
-      >
+        edges={['right', 'left', 'bottom']}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}
           keyboardVerticalOffset={offsetKeyboard}
-          style={{ flex: 1 }}
-        >
+          style={{flex: 1}}>
           <ScrollView contentContainerStyle={styles.contain}>
             <View>
               <Image source={image} style={styles.thumb} />
@@ -115,7 +115,7 @@ export default function ProfileEdit({ navigation }) {
               value={phone}
             />
           </ScrollView>
-          <View style={{ paddingVertical: 15, paddingHorizontal: 20 }}>
+          <View style={{paddingVertical: 15, paddingHorizontal: 20}}>
             <Button
               loading={loading}
               full
@@ -124,8 +124,7 @@ export default function ProfileEdit({ navigation }) {
                 setTimeout(() => {
                   navigation.goBack();
                 }, 500);
-              }}
-            >
+              }}>
               {t('confirm')}
             </Button>
           </View>

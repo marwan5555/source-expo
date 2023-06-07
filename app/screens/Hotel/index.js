@@ -119,7 +119,7 @@ export default function Hotel({navigation}) {
               renderItem={({item, index}) => (
                 <HotelItem
                   block
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   price={item.price}
@@ -189,7 +189,7 @@ export default function Hotel({navigation}) {
               renderItem={({item, index}) => (
                 <HotelItem
                   grid
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   price={item.price}
@@ -256,7 +256,7 @@ export default function Hotel({navigation}) {
               renderItem={({item, index}) => (
                 <HotelItem
                   list
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   price={item.price}
@@ -326,7 +326,7 @@ export default function Hotel({navigation}) {
               renderItem={({item, index}) => (
                 <HotelItem
                   block
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   price={item.price}

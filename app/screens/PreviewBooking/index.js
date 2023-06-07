@@ -82,7 +82,7 @@ export default function PreviewBooking({navigation,route}) {
                 {t('room')}
               </Text>
               <Text body1 semibold style={{marginBottom: 5}}>
-                Standard Twin Room (x1)
+              {route.params.available}
               </Text>
               <Text body2 style={{marginBottom: 5}}>
               {route.params.details}              
@@ -93,9 +93,7 @@ export default function PreviewBooking({navigation,route}) {
         <View
           style={[styles.contentButtonBottom, {borderTopColor: colors.border}]}>
           <View>
-            <Text caption1 semibold grayColor>
-            {route.params.days}
-            </Text>
+           
             <Text title3 primaryColor semibold>
              ฿ {route.params.price}
             </Text>

@@ -116,7 +116,7 @@ export default function Profile({navigation}) {
                 enableRTL={true}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.profileItem}
               onPress={() => {
                 navigation.navigate('Setting');
@@ -129,7 +129,7 @@ export default function Profile({navigation}) {
                 style={{marginLeft: 5}}
                 enableRTL={true}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
         <View style={{paddingHorizontal: 20, paddingVertical: 15}}>

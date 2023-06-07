@@ -108,16 +108,13 @@ export default function TourDetail({navigation, route}) {
                   <View style={styles.contentImageGird}>
                     <View style={{flex: 4, marginRight: 10}}>
                       <Card
-                        image={
-                          'https://onetravel.click/img/1685333451_.jpg'
-                        }></Card>
+                        image={route.params.img}></Card>
                     </View>
                     <View style={{flex: 6}}>
                       <View style={{flex: 1}}>
                         <Card
-                          image={
-                            'https://onetravel.click/img/1685333451_.jpg'
-                          }></Card>
+                          image=
+                            {route.params.image_day1}></Card>
                       </View>
                       <View
                         style={{
@@ -128,13 +125,12 @@ export default function TourDetail({navigation, route}) {
                         <View style={{flex: 6, marginRight: 10}}>
                           <Card
                             image={
-                              'https://onetravel.click/img/1685333451_.jpg'
+                              route.params.image_day2
                             }></Card>
                         </View>
                         <View style={{flex: 4}}>
                           <Card
-                            image={
-                              'https://onetravel.click/img/1685333451_.jpg'
+                            image={route.params.image_day3
                             }></Card>
                         </View>
                       </View>

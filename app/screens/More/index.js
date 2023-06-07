@@ -11,11 +11,11 @@ export default function More({navigation}) {
 
   const [refreshing] = useState(false);
   const [screen] = useState([
-    {
-      screen: 'Review',
-      icon: 'comments',
-      title: 'รีวิว',
-    },
+    // {
+    //   screen: 'Review',
+    //   icon: 'comments',
+    //   title: 'รีวิว',
+    // },
     {
       screen: 'Notification',
       icon: 'paper-plane',

@@ -6,13 +6,13 @@ import {
   ScrollView,
   Image,
   Alert,
-  Button
+  Button,
 } from 'react-native';
 import {BaseStyle, BaseColor, useTheme} from '@config';
-import {Header, SafeAreaView, TextInput, Icon, Text, } from '@components';
+import {Header, SafeAreaView, TextInput, Icon, Text} from '@components';
 import {useTranslation} from 'react-i18next';
 import * as ImagePicker from 'expo-image-picker';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import axios from 'axios';
 
@@ -32,6 +32,7 @@ export default function CheckOut({route, navigation}) {
   const [contactName, setContactName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success] = useState({
     street: true,
@@ -43,10 +44,20 @@ export default function CheckOut({route, navigation}) {
     phone: true,
   });
 
-  /**
-   *
-   * Called when process checkout
-   */
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      //aspect: [4, 3],
+      //quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const selectImage = async () => {
     try {
@@ -60,42 +71,64 @@ export default function CheckOut({route, navigation}) {
       const result = await ImagePicker.launchImageLibraryAsync();
 
       if (!result.cancelled) {
-        setSelectedImage(result.uri);
-        uploadImage(result.uri);
+        const asset = await MediaLibrary.createAssetAsync(result.uri);
+        const assetUri = await MediaLibrary.getAssetUrl(asset);
+
+        // ทำสิ่งที่คุณต้องการกับ URI ของรูปภาพที่ได้รับที่นี่
+        console.log('Image URI:', assetUri);
       }
     } catch (error) {
       console.error('Error selecting image:', error);
     }
   };
 
-  const uploadImage = async imageUri => {
+  const uploadImage = async () => {
     try {
-      let uid = await AsyncStorage.getItem("uid");
+      let uid = await AsyncStorage.getItem('uid');
+      let localUri = image;
+      let filename = localUri.split('/').pop();
+      console.log(localUri);
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
       const formData = new FormData();
-      formData.append('image', {
-        uri: imageUri,
-        name: 'image.jpg',
-        type: 'image/jpeg',
-      });
+      formData.append('image', {uri: localUri, name: filename, type});
       formData.append('uid', uid);
       formData.append('hotel', route.params.name);
       formData.append('price', route.params.price);
       formData.append('check_in', route.params.check_in);
       formData.append('check_out', route.params.check_out);
 
-
-      const response = await axios.post('https://onetravel.click/app/booking.php', formData, {
+      return fetch('https://onetravel.click/app/booking.php', {
+        method: 'POST',
+        body: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'content-type': 'multipart/form-data',
         },
-      });
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success === true) {
+            onCheckOut();
+          } else {
+            Alert.alert('Error', response.data.message);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
 
-      console.log('Image uploaded:', response.data);
-      if(response.data.success ===true){
-        onCheckOut()
-      }else{
-        Alert.alert('alert',response.data.success)
-      }
+      // const response = await axios.post('https://onetravel.click/app/booking.php', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
+
+      // console.log('Image uploaded:', response.data);
+      // if (response.data.success === true) {
+      //   onCheckOut();
+      // } else {
+      //   Alert.alert('Error', response.data.message);
+      // }
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -156,18 +189,20 @@ export default function CheckOut({route, navigation}) {
             <Text style={{}}>฿ {route.params.price}</Text>
             <View
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              {selectedImage && (
+              <Button
+                title="Pick an image from camera roll"
+                onPress={pickImage}
+              />
+              {image && (
                 <Image
-                  source={{uri: selectedImage}}
-                  style={{width: 200, height: 200, marginBottom: 20}}
+                  source={{uri: image}}
+                  style={{width: 200, height: 200}}
                 />
               )}
-              <Button title="อัพโหลด" onPress={selectImage} />
+              {image && <Button title="Upload Image" onPress={uploadImage} />}
             </View>
           </ScrollView>
-          <View style={{paddingHorizontal: 20, paddingVertical: 15}}>
-            
-          </View>
+          <View style={{paddingHorizontal: 20, paddingVertical: 15}}></View>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>

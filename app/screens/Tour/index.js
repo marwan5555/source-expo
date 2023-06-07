@@ -103,7 +103,7 @@ export default function Tour({navigation}) {
               renderItem={({item, index}) => (
                 <TourItem
                   block
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   travelTime={item.location}
@@ -121,7 +121,7 @@ export default function Tour({navigation}) {
                     navigation.navigate('TourDetail');
                   }}
                   onPressBookNow={() => {
-                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
+                    navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.start_time,check_out:item.last,days:item.day,details:item.details,available:item.hotel});
                   }}
                 />
               )}
@@ -180,7 +180,7 @@ export default function Tour({navigation}) {
               renderItem={({item, index}) => (
                 <TourItem
                   grid
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   travelTime={item.travelTime}
@@ -256,7 +256,7 @@ export default function Tour({navigation}) {
               renderItem={({item, index}) => (
                 <TourItem
                   list
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   travelTime={item.travelTime}
@@ -329,7 +329,7 @@ export default function Tour({navigation}) {
               renderItem={({item, index}) => (
                 <TourItem
                   block
-                  image={item.image}
+                  image={item.image_path}
                   name={item.name}
                   location={item.location}
                   travelTime={item.travelTime}

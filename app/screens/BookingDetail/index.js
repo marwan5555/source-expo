@@ -21,7 +21,7 @@ export default function BookingDetail({ navigation }) {
     try {
       let uid = await AsyncStorage.getItem('uid');
 
-      fetch('https://onetravel.click/app/book.php?uid=' + uid)
+      fetch('https://onetravel.click/app/book.php?uid='+uid)
         .then(response => response.json())
         .then(data => {
           setPosts(data);

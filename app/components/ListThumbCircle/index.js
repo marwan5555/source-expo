@@ -24,7 +24,7 @@ export default function ListThumbCircle(props) {
       ]}
       onPress={onPress}
       activeOpacity={0.9}>
-      <Image source={image} style={[styles.thumb, imageStyle]} />
+      <Image source={{uri:image}} style={[styles.thumb, imageStyle]} />
       <View style={styles.content}>
         <View style={styles.left}>
           <Text headline semibold>

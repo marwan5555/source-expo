@@ -31,9 +31,9 @@ export default function Home({navigation}) {
       route: 'Tour',
     },
     {
-      icon: 'ellipsis-h',
-      name: 'more',
-      route: 'More',
+      icon: 'paper-plane',
+      name: 'แจ้งเตือน',
+      route: 'Notification',
     },
   ]);
   const [relate,setRelate] = useState();
@@ -184,7 +184,7 @@ export default function Home({navigation}) {
                         <Button
                           style={styles.btnPromotion}
                           onPress={() => {
-                            navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
+                            navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details,available:item.available});
                           }}>
                           <Text body2 semibold whiteColor>
                             {t('จองตอนนี้')}

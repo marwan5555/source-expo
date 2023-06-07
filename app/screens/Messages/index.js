@@ -1,155 +1,197 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
+  StyleSheet,
+  Text,
   View,
-  FlatList,
+  Image,
+  TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { BaseStyle, Images, useTheme } from '@config';
-import { Header, SafeAreaView, Icon, Image, Text, TextInput } from '@components';
-import styles from './styles';
-import { useTranslation } from 'react-i18next';
-import io from 'socket.io-client'; // Import socket.io-client
-
-export default function Messages() {
-  const { t } = useTranslation();
-  const { colors } = useTheme();
-  const offsetKeyboard = Platform.select({
-    ios: 0,
-    android: 20,
-  });
-  const [socket, setSocket] = useState(null);
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+  FlatList,
+  Dimensions,
+  Alert,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+export default function Messages({ navigation }) {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [send, setSend] = useState(true);
+
+  const [inputMessage, setInputMessage] = useState("");
 
   useEffect(() => {
-    // Connect to Socket.io server
-    const newSocket = io('http://your-socket-server-url');
+    const intervalId = setInterval(() => {
+      load()
+    }, 1000);
 
-    newSocket.on('connect', () => {
-      console.log('Connected to Socket.io server');
-    });
-
-    newSocket.on('disconnect', () => {
-      console.log('Disconnected from Socket.io server');
-    });
-
-    newSocket.on('receiveMessage', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    setSocket(newSocket);
-
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
-  const sendMessage = () => {
-    if (socket && input.trim() !== '') {
-      const message = {
-        id: Math.random().toString(),
-        message: input,
-        created: new Date().toLocaleTimeString(),
-      };
-
-      socket.emit('sendMessage', message);
-
-      setMessages((prevMessages) => [...prevMessages, message]);
-
-      setInput('');
+  const load = async () => {
+    try {
+       uid = await AsyncStorage.getItem("uid");
+      fetch("https://onetravel.click/admin/chat/chat.php?&uid="+uid)
+        .then((responses) => responses.json())
+        .then((datas) => {
+          setMessages(datas);
+        })
+        .catch((error) =>
+          Alert.alert("แจ้งเตือน!", "ไม่มีการเชื่อมต่อเครือข่าย")
+        );
+    } catch (error) {
+      
     }
-  };
+  }
 
-  const renderItem = ({item}) => {
-    if (item.user) {
-      return (
-        <View style={styles.userContent}>
-          <Image
-            source={item.user.avatar}
-            style={[styles.avatar, {borderColor: colors.border}]}
-          />
-          <View style={{paddingHorizontal: 8, flex: 7}}>
-            <Text caption1>{item.user.name}</Text>
-            <View
-              style={[
-                styles.userContentMessage,
-                {backgroundColor: colors.primaryLight},
-              ]}>
-              <Text body2 whiteColor>
-                {item.message}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.userContentDate}>
-            <Text footnote numberOfLines={1}>
-              {item.created}
-            </Text>
-          </View>
-        </View>
-      );
+  const sendMessage = async () => {
+    try {
+      let uid = await AsyncStorage.getItem("uid");
+      console.log("uid: " + uid);
+      if (inputMessage.trim() === "") {
+        setInputMessage("");
+      } else {
+        setSend(false);
+        fetch("https://onetravel.click/admin/chat/send_chat.php", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            uid: uid,
+            msg: inputMessage,
+          }),
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            console.log(responseJson);
+            if (responseJson === "success") {
+              setMessages([
+                ...messages,
+                {
+                  sender: "user",
+                  message: inputMessage,
+                },
+              ]);
+              setInputMessage("");
+              setSend(true);
+            } else {
+              Alert.alert(responseJson);
+            }
+          })
+          .catch((error) => {
+            Alert.alert("แจ้งเตือน!", "ไม่สามารถส่งข้อความได้ " + error);
+            console.log(error);
+          });
+      }
+    } catch (err) {
+      console.log(err);
     }
-
-    return (
-      <View style={styles.meContent}>
-        <View style={styles.meContentDate}>
-          <Text footnote numberOfLines={1}>
-            {item.created}
-          </Text>
-        </View>
-        <View style={{paddingLeft: 8, flex: 7}}>
-          <View
-            style={[styles.meContentMessage, {backgroundColor: colors.card}]}>
-            <Text body2>{item.message}</Text>
-          </View>
-        </View>
-      </View>
-    );
   };
 
   return (
-    <View style={{flex: 1}}>
-      <Header title={t('messages')} />
-      <SafeAreaView
-        style={BaseStyle.safeAreaView}
-        edges={['right', 'left', 'bottom']}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'android' ? 'height' : 'padding'}
-          keyboardVerticalOffset={offsetKeyboard}
-          style={{flex: 1}}>
-          <View style={{flex: 1}}>
-            <FlatList
-              data={messages}
-              keyExtractor={(item) => item.id}
-              renderItem={renderItem}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <FlatList
+          style={{ backgroundColor: "#f2f2ff" }}
+          inverted={true}
+          data={JSON.parse(JSON.stringify(messages)).reverse()}
+          renderItem={({ item }) => (
+            <TouchableWithoutFeedback>
+              <View style={{ marginTop: 6 }}>
+                <View
+                  style={{
+                    maxWidth: Dimensions.get("screen").width * 0.8,
+                    backgroundColor:
+                      item.sender === "user" ? "#4169E1" : "#999",
+                    alignSelf:
+                      item.sender === "user" ? "flex-end" : "flex-start",
+                    marginHorizontal: 10,
+                    padding: 10,
+                    borderRadius: 15,
+                    borderBottomLeftRadius: item.sender === "user" ? 15 : 0,
+                    borderBottomRightRadius: item.sender === "user" ? 0 : 15,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 16,
+                    }}
+                  >
+                    {item.message}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#dfe4ea",
+                      fontSize: 10,
+                      alignSelf: item.sender === "user" ? "flex-end" : "flex-start",
+                    }}
+                  >
+                    {item.time}
+                  </Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          )}
+        />
+
+        <View style={{ paddingVertical: 10 }}>
+          <View style={styles.messageInputView}>
+            <TextInput
+              defaultValue={inputMessage}
+              style={styles.messageInput}
+              placeholder="พิมพ์ข้อความ..."
+              onChangeText={(text) => setInputMessage(text)}
+              onSubmitEditing={() => {
+                sendMessage();
+              }}
             />
-          </View>
-          <View style={styles.inputContent}>
-            <View style={{flex: 1}}>
-              <TextInput
-                style={styles.input}
-                placeholder={t('type_message')}
-                onChangeText={setInput}
-                value={input}
-                onSubmitEditing={sendMessage}
-              />
-            </View>
             <TouchableOpacity
-              style={[styles.sendIcon, {backgroundColor: colors.primary}]}
-              onPress={sendMessage}>
-              <Icon
-                name="paper-plane"
-                size={20}
-                color="white"
-                enableRTL={true}
-              />
+              style={styles.messageSendView}
+              onPress={() => {
+                send ? sendMessage() : null;
+              }}
+            >
+              <Icon name="send" type="material" />
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  headerLeft: {
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  userProfileImage: { height: "100%", aspectRatio: 1, borderRadius: 100 },
+  container: {
+    flex: 1,
+    backgroundColor: "#f2f2ff",
+  },
+  messageInputView: {
+    display: "flex",
+    flexDirection: "row",
+    marginHorizontal: 14,
+    backgroundColor: "#fff",
+    borderRadius: 4,
+  },
+  messageInput: {
+    height: 40,
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  messageSendView: {
+    paddingHorizontal: 10,
+    justifyContent: "center",
+  },
+});

@@ -3,7 +3,6 @@ import {RefreshControl, FlatList, View} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, PostItem, ProfileAuthor} from '@components';
 import styles from './styles';
-import {PostData} from '@data';
 import {useTranslation} from 'react-i18next';
 
 export default function Post({navigation}) {

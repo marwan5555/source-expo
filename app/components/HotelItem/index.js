@@ -34,7 +34,8 @@ export default function HotelItem(props) {
     return (
       <View style={style}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={{uri:image}} style={styles.blockImage} />
+          {/* แก้ไขบรรทัดนี้ */}
+          <Image source={{ uri: image }} style={styles.blockImage} />
         </TouchableOpacity>
         <View style={{paddingHorizontal: 20}}>
           <Text title2 semibold style={{marginTop: 5}} numberOfLines={1}>
@@ -132,7 +133,8 @@ export default function HotelItem(props) {
     return (
       <View style={[styles.listContent, style]}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.listImage} />
+          {/* แก้ไขบรรทัดนี้ */}
+          <Image source={{ uri: image }} style={styles.listImage} />
         </TouchableOpacity>
         <View style={styles.listContentRight}>
           <Text headline semibold numberOfLines={1}>
@@ -198,7 +200,8 @@ export default function HotelItem(props) {
     return (
       <View style={[styles.girdContent, style]}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.girdImage} />
+          {/* แก้ไขบรรทัดนี้ */}
+          <Image source={{ uri: image }} style={styles.girdImage} />
         </TouchableOpacity>
         <View style={styles.girdContentLocation}>
           <Icon name="map-marker-alt" color={colors.primary} size={10} />
