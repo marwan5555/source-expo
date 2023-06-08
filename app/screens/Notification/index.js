@@ -10,16 +10,31 @@ export default function Notification({navigation}) {
   const {t} = useTranslation();
   const {colors} = useTheme();
 
-  const [refreshing] = useState(false);
-  const [notification, setNotification] = useState();
+  const [refreshing, setRefreshing] = useState(false);
+  const [notification, setNotification] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://onetravel.click/app/notifications.php');
+      const data = await response.json();
+      console.log(data);
+      setNotification(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    fetch('https://onetravel.click/app/notifications.php')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setNotification(data);
-      });
+    fetchData();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchData();
+  };
+
   return (
     <View style={{flex: 1}}>
       <Header
@@ -38,9 +53,7 @@ export default function Notification({navigation}) {
           navigation.goBack();
         }}
       />
-      <SafeAreaView
-        style={BaseStyle.safeAreaView}
-        edges={['right', 'left', 'bottom']}>
+      <SafeAreaView style={BaseStyle.safeAreaView} edges={['right', 'left', 'bottom']}>
         <FlatList
           contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 10}}
           refreshControl={
@@ -48,17 +61,17 @@ export default function Notification({navigation}) {
               colors={[colors.primary]}
               tintColor={colors.primary}
               refreshing={refreshing}
-              onRefresh={() => {}}
+              onRefresh={onRefresh}
             />
           }
           data={notification}
-          keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => (
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) => (
             <ListThumbCircle
               image={item.image_path}
               txtLeftTitle={item.title}
               txtContent={item.description}
-              txtRight={item.date}
+              txtRight={item.notification_date}
               style={{marginBottom: 5}}
             />
           )}
@@ -67,3 +80,4 @@ export default function Notification({navigation}) {
     </View>
   );
 }
+

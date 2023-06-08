@@ -1,8 +1,9 @@
 import React, {useState,useEffect} from 'react';
-import {RefreshControl, FlatList, View} from 'react-native';
+import {RefreshControl, FlatList, View, Button} from 'react-native';
 import {BaseStyle, useTheme} from '@config';
 import {Header, SafeAreaView, PostItem, ProfileAuthor} from '@components';
 import styles from './styles';
+import {PostData} from '@data';
 import {useTranslation} from 'react-i18next';
 
 export default function Post({navigation}) {
@@ -40,18 +41,25 @@ export default function Post({navigation}) {
           data={posts}
           keyExtractor={(item, index) => item.id}
           renderItem={({item, index}) => (
-            <PostItem
-              image={item.image_path}
-              title={item.title}
-              description={item.description}
-              onPress={() => navigation.navigate('PostDetail')}>
-              <ProfileAuthor
-                image={item.authorImage}
-                name={item.name}
-                description={item.detail}
-                style={{paddingHorizontal: 20}}
-              />
-            </PostItem>
+            <View>
+              <PostItem
+                image={item.image_path}
+                title={item.title}
+                description={item.description}
+                onPress={() => navigation.navigate('PostDetail')}>
+                <ProfileAuthor
+                  image={item.authorImage}
+                  name={item.name}
+                  description={item.detail}
+                  style={{paddingHorizontal: 20}}
+                />
+              </PostItem>
+              <View style={{flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10}}>
+                <Button title="ถูกใจ" onPress={() => { /* Handle like action */ }} />
+                <Button title="แสดงความคิดเห็น" onPress={() => { /* Handle comment action */ }} />
+                <Button title="แชร์" onPress={() => { /* Handle share action */ }} />
+              </View>
+            </View>
           )}
         />
       </SafeAreaView>
