@@ -1,22 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {View, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
-import {BaseStyle, useTheme} from '@config';
-import {
-  Image,
-  Header,
-  SafeAreaView,
-  Icon,
-  Text,
-  Button,
-  TextInput,
-} from '@components';
+import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { BaseStyle, useTheme } from '@config';
+import { Image, Header, SafeAreaView, Icon, Text, Button, TextInput } from '@components';
 import styles from './styles';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-export default function ProfileEdit({navigation}) {
-  const {colors} = useTheme();
-  const {t} = useTranslation();
+export default function ProfileEdit({ navigation }) {
+  const { colors } = useTheme();
+  const { t } = useTranslation();
   const offsetKeyboard = Platform.select({
     ios: 0,
     android: 20,
@@ -49,8 +41,35 @@ export default function ProfileEdit({navigation}) {
     }
   };
 
+  const updateUserData = async () => {
+    try {
+      const uid = await AsyncStorage.getItem('uid');
+      const response = await fetch('https://onetravel.click/app/update_user.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: uid,
+          name: name,
+          email: email,
+          phone: phone,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+        navigation.goBack(); 
+      // else {
+      //   console.error('Update failed');
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         title={t('edit_profile')}
         renderLeft={() => {
@@ -66,7 +85,7 @@ export default function ProfileEdit({navigation}) {
         onPressLeft={() => {
           navigation.goBack();
         }}
-        onPressRight={() => {}}
+        onPressRight={() => { }}
       />
       <SafeAreaView
         style={BaseStyle.safeAreaView}
@@ -74,7 +93,7 @@ export default function ProfileEdit({navigation}) {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}
           keyboardVerticalOffset={offsetKeyboard}
-          style={{flex: 1}}>
+          style={{ flex: 1 }}>
           <ScrollView contentContainerStyle={styles.contain}>
             <View>
               <Image source={image} style={styles.thumb} />
@@ -115,15 +134,13 @@ export default function ProfileEdit({navigation}) {
               value={phone}
             />
           </ScrollView>
-          <View style={{paddingVertical: 15, paddingHorizontal: 20}}>
+          <View style={{ paddingVertical: 15, paddingHorizontal: 20 }}>
             <Button
               loading={loading}
               full
               onPress={() => {
                 setLoading(true);
-                setTimeout(() => {
-                  navigation.goBack();
-                }, 500);
+                updateUserData();
               }}>
               {t('confirm')}
             </Button>

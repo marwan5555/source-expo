@@ -4615,7 +4615,7 @@ expo-modules-core@1.2.5:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
-expo-notifications@^0.18.1:
+expo-notifications@~0.18.1:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/expo-notifications/-/expo-notifications-0.18.1.tgz#c726bee7b6691d5f154b874afeda3b4561571cfc"
   integrity sha512-lOEiuPE6ubkS5u7Nj/57gkmUGD/MxsRTC6bg9SGJqXIitBQZk3Tmv9y8bjTrn71n7DsrH8K7xCZTbVwr+kLQGg==
@@ -4629,6 +4629,16 @@ expo-notifications@^0.18.1:
     expo-constants "~14.2.0"
     fs-extra "^9.1.0"
     uuid "^3.4.0"
+
+expo-permissions@~14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-14.1.1.tgz#6fc4ec5caf712df3ff2d9b7b831a6d9116f1d2b8"
+  integrity sha512-hOuAOBz+ZLsSJ3E8Ere/oA7YIYLNGf9fCApTi9OQmeJyCBsBHynf1yqMfVVpuDcCMixZ2XzsWlScq75f+7U1dQ==
+
+expo-sharing@^11.2.2:
+  version "11.2.2"
+  resolved "https://registry.yarnpkg.com/expo-sharing/-/expo-sharing-11.2.2.tgz#7d9e387f1a902e6dd6838c22d9599dae9e7432cf"
+  integrity sha512-4Lhm1eS/CFIzX+JPuxMUTWBt9rv/WdvJvpQ9y+71bL/9w9dhvsdt9tv0SsNZATz4hk0tbrYD8ZEUsgiHiT1KkQ==
 
 expo-sqlite@~11.1.1:
   version "11.1.1"

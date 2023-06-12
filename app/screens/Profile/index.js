@@ -59,9 +59,9 @@ export default function Profile({navigation}) {
     <View style={{flex: 1}}>
       <Header
         title={t('profile')}
-        renderRight={() => {
-          return <Icon name="bell" size={24} color={colors.primary} />;
-        }}
+        // renderRight={() => {
+        //   return <Icon name="bell" size={24} color={colors.primary} />;
+        // }}
       />
       <SafeAreaView
         style={BaseStyle.safeAreaView}

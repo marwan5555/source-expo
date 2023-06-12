@@ -145,7 +145,7 @@ export default function SignUp({ navigation }) {
                   password: true,
                 });
               }}
-              placeholder={t('กรอบรหัสผ่าน6 ตัวขึ้นไป')}
+              placeholder={t('ใช้ตัวเลข ตัวอักษร สัญลักษณ์ กรอบรหัสผ่าน6 ตัวขึ้นไป')}
               secureTextEntry={!passwordVisible}
               success={success.password}
               value={password}

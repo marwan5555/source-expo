@@ -5,6 +5,35 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "notification": {
+      "android": {
+        "permissions": {
+          "allowAlert": true,
+          "allowNotification": true,
+          "allowDisplayedInForeground": true
+        }
+      }
+    },
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/mysoundfile.wav"
+          ]
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,14 +47,52 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.huynh.felixpro"
+      "bundleIdentifier": "com.huynh.felixpro",
+      "config": {
+        "googleMobileAdsAppId": "YOUR_GOOGLE_ADS_APP_ID"
+      },
+      "notification": {
+        "icon": "./assets/notification-icon.png",
+        "iosDisplayInForeground": true,
+        "iosDisplayInBackground": true,
+        "registrationStrategy": "normal",
+        "channels": [
+          {
+            "name": "Your Channel Name",
+            "description": "Your Channel Description",
+            "sound": true,
+            "vibrate": true,
+            "priority": "max"
+          }
+        ]
+      }
     },
     "android": {
+      "permissions": [
+        "NOTIFICATIONS"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.project.pnu"
+      "package": "com.project.pnu",
+      "config": {
+        "googleMobileAdsAppId": "YOUR_GOOGLE_ADS_APP_ID"
+      },
+      "notification": {
+        "icon": "./assets/notification-icon.png",
+        "color": "#f56b74",
+        "androidMode": "default",
+        "androidCollapsedTitle": "Your Collapsed Title",
+        "channels": [
+          {
+            "name": "default",
+            "sound": true,
+            "vibrate": true,
+            "priority": "max"
+          }
+        ]
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
