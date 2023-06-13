@@ -66,7 +66,7 @@ export default function ProfileEdit({ navigation }) {
     } catch (error) {
       console.error(error);
     }
-  };
+  }; 
 
   return (
     <View style={{ flex: 1 }}>
