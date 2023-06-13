@@ -43,6 +43,8 @@ import EventItem from './EventItem';
 import EventCard from './EventCard';
 import TextInput from './TextInput';
 import RangeSlider from './RangeSlider';
+import Bookcheckin from './Bookingcheckin';
+import Bookingcheckout from './Bookingcheckout';
 
 export {
   BusPlan,
@@ -90,4 +92,6 @@ export {
   EventCard,
   TextInput,
   RangeSlider,
+  Bookcheckin,
+  Bookingcheckout,
 };

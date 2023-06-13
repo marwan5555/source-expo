@@ -4,6 +4,12 @@ import {BaseStyle, BaseColor, useTheme} from '@config';
 import {Header, SafeAreaView, Icon, Text, Button} from '@components';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
+import {
+  Bookcheckin,
+  Bookingcheckout,
+} from '@components';
+
+
 
 export default function PreviewBooking({navigation,route}) {
   const {t} = useTranslation();
@@ -44,14 +50,14 @@ export default function PreviewBooking({navigation,route}) {
             <View
               style={[styles.blockView, {borderBottomColor: colors.border}]}>
               <View style={{flexDirection: 'row', marginTop: 10}}>
-                <View style={{flex: 1}}>
+                <View>
                   <Text body2>{t('check_in')}</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                   <Text body2 semibold>
-                    {route.params.check_in}
+                    {/* {route.params.check_in} */}
+                    <Bookcheckin />
                   </Text>
-                
                 </View>
               </View>
               <View style={{flexDirection: 'row', marginTop: 10}}>
@@ -60,7 +66,8 @@ export default function PreviewBooking({navigation,route}) {
                 </View>
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                   <Text body2 semibold>
-                  {route.params.check_out}
+                  {/* {route.params.check_out} */}
+                  <Bookingcheckout />
                   </Text>
                   
                 </View>

@@ -49,7 +49,7 @@ export default function HotelDetail({navigation, route}) {
         style={[styles.imgBanner]}
       />
       <Header
-        title={t('ข้อมูลห้องพัก')}
+        title={t('')}
         renderLeft={() => (
           <Icon
             name="arrow-left"
