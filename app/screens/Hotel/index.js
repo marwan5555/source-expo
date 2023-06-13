@@ -64,7 +64,6 @@ export default function Hotel({navigation}) {
         break;
       case 'list':
         setModeView('block');
-
         break;
       default:
         setModeView('block');
@@ -72,12 +71,6 @@ export default function Hotel({navigation}) {
     }
   };
 
-  /**
-   * @description Render container view
-   * @author Passion UI <passionui.com>
-   * @date 2019-08-03
-   * @returns
-   */
   const renderContent = () => {
     const navbarTranslate = clampedScroll.interpolate({
       inputRange: [0, 40],
@@ -132,7 +125,7 @@ export default function Hotel({navigation}) {
                     paddingBottom: 10,
                   }}
                   onPress={() => navigation.navigate('HotelDetail')}
-                  onPressTag={() => navigation.navigate('Review')}
+                  // onPressTag={() => navigation.navigate('Review')}
                 />
               )}
             />
@@ -141,16 +134,16 @@ export default function Hotel({navigation}) {
                 styles.navbar,
                 {transform: [{translateY: navbarTranslate}]},
               ]}>
-              <FilterSort
+              {/* <FilterSort
                 modeView={modeView}
                 onChangeSort={onChangeSort}
                 onChangeView={onChangeView}
                 onFilter={onFilter}
-              />
+              /> */}
             </Animated.View>
           </View>
         );
-      case 'grid':
+      // case 'grid':
         return (
           <View style={{flex: 1}}>
             <Animated.FlatList
@@ -364,7 +357,6 @@ export default function Hotel({navigation}) {
     <View style={{flex: 1}}>
       <Header
         title={t('hotels')}
-        subTitle="24 Dec 2018, 2 Nights, 1 Room"
         renderLeft={() => {
           return (
             <Icon
@@ -375,9 +367,9 @@ export default function Hotel({navigation}) {
             />
           );
         }}
-        renderRight={() => {
-          return <Icon name="search" size={20} color={colors.primary} />;
-        }}
+        // renderRight={() => {
+        //   return <Icon name="search" size={20} color={colors.primary} />;
+        // }}
         onPressLeft={() => {
           navigation.goBack();
         }}

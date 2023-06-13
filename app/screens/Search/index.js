@@ -182,7 +182,7 @@ export default function Search({navigation}) {
             <View style={[styles.lineRow, {marginBottom: 40}]}>
               <View>
                 <Text body1>{t('duration')}</Text>
-                <Text caption1 grayColor>
+                <Text >
                   {t('night')}
                 </Text>
               </View>
@@ -232,8 +232,8 @@ export default function Search({navigation}) {
               placeholder={t('what_are_you_looking_for')}
               value={keyword}
             />
-            <BookingTime style={{marginTop: 15}} />
-            <View style={styles.contentQuest}>
+            {/* <BookingTime style={{marginTop: 15}} /> */}
+            {/* <View style={styles.contentQuest}>
               <TouchableOpacity
                 style={[styles.total, {backgroundColor: colors.card}]}
                 onPress={() => openModal('quest')}>
@@ -254,7 +254,7 @@ export default function Search({navigation}) {
                   1 {t('night')}
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </ScrollView>
           <View style={{paddingHorizontal: 20, paddingVertical: 15}}>
             <Button

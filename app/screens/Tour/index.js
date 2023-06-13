@@ -118,7 +118,32 @@ export default function Tour({navigation}) {
                     marginBottom: 10,
                   }}
                   onPress={() => {
-                    navigation.navigate('TourDetail');
+                    navigation.navigate('TourDetail',{id:item.id,
+                      img:item.image_path,
+                      name:item.name,
+                      location:item.location,
+                      travel_time:item.travel_time,
+                      start_time:item.start_time,
+                      last:item.last,
+                      price:item.price,
+                      rating:item.rating,
+                      day1:item.day1,
+                      day2:item.day2,
+                      day3:item.day3,
+                      day4:item.day4,
+                      image_day1:item.image_day1,
+                      image_day2:item.image_day2,
+                      image_day3:item.image_day3,
+                      image_day4:item.image_day4,
+                      name_day1:item.name_day1,
+                      name_day2:item.name_day2,
+                      name_day3:item.name_day3,
+                      name_day4:item.name_day4,
+                      description1:item.description1,
+                      description2:item.description2,
+                      description3:item.description3,
+                      description4:item.description4,
+                      });
                   }}
                   onPressBookNow={() => {
                     navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.start_time,check_out:item.last,days:item.day,details:item.details,available:item.hotel});
@@ -131,12 +156,12 @@ export default function Tour({navigation}) {
                 styles.navbar,
                 {transform: [{translateY: navbarTranslate}]},
               ]}>
-              <FilterSort
+              {/* <FilterSort
                 modeView={modeView}
                 onChangeSort={onChangeSort}
                 onChangeView={onChangeView}
                 onFilter={onFilter}
-              />
+              /> */}
             </Animated.View>
           </View>
         );
@@ -344,7 +369,33 @@ export default function Tour({navigation}) {
                     marginBottom: 10,
                   }}
                   onPress={() => {
-                    navigation.navigate('TourDetail');
+                    navigation.navigate('TourDetail',
+                      {id:item.id,
+                      img:item.image_path,
+                      name:item.name,
+                      location:item.location,
+                      travel_time:item.travel_time,
+                      start_time:item.start_time,
+                      last:item.last,
+                      price:item.price,
+                      rating:item.rating,
+                      day1:item.day1,
+                      day2:item.day2,
+                      day3:item.day3,
+                      day4:item.day4,
+                      image_day1:item.image_day1,
+                      image_day2:item.image_day2,
+                      image_day3:item.image_day3,
+                      image_day4:item.image_day4,
+                      name_day1:item.name_day1,
+                      name_day2:item.name_day2,
+                      name_day3:item.name_day3,
+                      name_day4:item.name_day4,
+                      description1:item.description1,
+                      description2:item.description2,
+                      description3:item.description3,
+                      description4:item.description4,
+                      });
                   }}
                   onPressBookNow={() => {
                     navigation.navigate('PreviewBooking',{id:item.id,name:item.name,location:item.location,image:item.image_path,price:item.price,check_in:item.check_in,check_out:item.check_out,days:item.days,details:item.details});
@@ -357,12 +408,12 @@ export default function Tour({navigation}) {
                 styles.navbar,
                 {transform: [{translateY: navbarTranslate}]},
               ]}>
-              <FilterSort
+              {/* <FilterSort
                 modeView={modeView}
                 onChangeSort={onChangeSort}
                 onChangeView={onChangeView}
                 onFilter={onFilter}
-              />
+              /> */}
             </Animated.View>
           </View>
         );
@@ -373,7 +424,6 @@ export default function Tour({navigation}) {
     <View style={{flex: 1}}>
       <Header
         title={t('tours')}
-        subTitle="24 Dec 2018, 2 Nights, 1 Room"
         renderLeft={() => {
           return (
             <Icon
@@ -384,15 +434,15 @@ export default function Tour({navigation}) {
             />
           );
         }}
-        renderRight={() => {
-          return <Icon name="search" size={20} color={colors.primary} />;
-        }}
+        // renderRight={() => {
+        //   return <Icon name="search" size={20} color={colors.primary} />;
+        // }}
         onPressLeft={() => {
           navigation.goBack();
         }}
-        onPressRight={() => {
-          navigation.navigate('SearchHistory');
-        }}
+        // onPressRight={() => {
+        //   navigation.navigate('SearchHistory');
+        // }}
       />
       <SafeAreaView
         style={BaseStyle.safeAreaView}

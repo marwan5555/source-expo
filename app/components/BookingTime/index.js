@@ -10,7 +10,6 @@ import {useTranslation} from 'react-i18next';
 
 export default function BookingTime(props) {
   const {t} = useTranslation();
-
   const [markedDatesIn, setMarkedDatesIn] = useState({});
   const [markedDatesOut, setMarkedDatesOut] = useState({});
   const [checkInTime, setCheckInTime] = useState(props.checkInTime);

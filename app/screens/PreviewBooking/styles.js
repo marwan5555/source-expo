@@ -15,4 +15,26 @@ export default StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
   },
+  lineRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 20,
+  },
+  iconRight: {
+    width: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  contentActionCalendar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+  },
+  contentPickDate: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 8,
+    padding: 10,
+  },
 });
